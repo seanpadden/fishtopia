@@ -10,13 +10,19 @@ class FishController < ApplicationController
   end 
 
   def create 
-    fish = Fish.find_or_create_by(name: user_params[:name])
+    fish = Fish.create(fish_params)
     render json: fish
   end
 
+  def destroy 
+    fish = Fish.find(params[:id])
+    fish.destroy
+    render json: fish
+  end 
+
 private
 
-  def user_params
-    params.require(:user).permit(:id, :name, :skill, :img)
+  def fish_params
+    params.require(:fish).permit(:name, :skill, :image)
   end 
 end
